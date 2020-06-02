@@ -23,7 +23,7 @@ class Ionburst:
         self.__check_token()
         res = self.__apihandler.downloadData(id)
         if res.status_code is 200:
-            return res.text
+            return res.content
         else:
             raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
 
@@ -81,6 +81,6 @@ class Ionburst:
         self.__check_token()
         res = self.__apihandler.fetch(token)
         if res.status_code is 200:
-            return res.text
+            return res.content
         else:
             raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
