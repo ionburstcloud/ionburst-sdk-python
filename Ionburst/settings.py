@@ -37,13 +37,6 @@ class Settings:
                     self.ProfilesLocation = ionburst_data['ProfilesLocation']
                 if 'TraceCredentialsFile' in ionburst_data.keys() and ionburst_data['TraceCredentialsFile'].upper() is "ON":
                     self.TraceCredentialsFile = True
-        else:
-            ionburst_data = {
-                'Ionburst': {}
-            }
-            ionburst_data['Ionburst']['IonBurstUri'] = self.ionburst_uri
-            with open(config_file_path, 'w') as outfile:
-                json.dump(ionburst_data, outfile)
 
     def __manage_credentials(self):
         if not self.Profile:
