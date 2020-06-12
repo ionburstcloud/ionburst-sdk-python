@@ -4,14 +4,16 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name='ionburst-sdk',
+    name='ionburst-sdk-python',
     version='0.9.10',
     scripts=[],
-    author="Costin Botez",
-    author_email="contact@costinbotez.com",
+    author="Ionburst Limited",
+    author_email="sdk@ionburst.io",
+    license="Apache-2.0",
+    description="Ionburst SDK for Python",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="",
+    url="https://gitlab.com/ionburst/ionburst-sdk-python/",
     packages=['Ionburst'],
     install_requires=[
         'certifi==2020.4.5.1',
