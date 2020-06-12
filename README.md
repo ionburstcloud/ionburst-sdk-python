@@ -146,6 +146,10 @@ The [Gitlab issues][sdk-issues] are intended for bug reports and feature request
 
 The change log for the SDK can be found in the Gitlab Releases [page](https://gitlab.com/ionburst/ionburst-sdk-python)
 
+## Contributors
+
+A massive thanks to [Costin Botez](https://github.com/costibotez) for developing this SDK.
+
 ## Tests
 
 ### Dependencies
