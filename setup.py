@@ -1,11 +1,17 @@
 import setuptools
+import re
+
+with open("Ionburst/__init__.py", "r") as fd:
+    version = re.search(
+        r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', fd.read(), re.MULTILINE
+    ).group(1)
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name='ionburst-sdk-python',
-    version='0.9.10',
+    version=version,
     scripts=[],
     author="Ionburst Limited",
     author_email="sdk@ionburst.io",
