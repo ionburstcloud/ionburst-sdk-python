@@ -31,6 +31,8 @@ class Settings:
                 ionburst_data = data['Ionburst']
                 if 'IonBurstUri' in ionburst_data.keys() and ionburst_data['IonBurstUri']:
                     self.ionburst_uri = ionburst_data['IonBurstUri']
+                if 'IonburstUri' in ionburst_data.keys() and ionburst_data['IonburstUri']:
+                    self.ionburst_uri = ionburst_data['IonburstUri']                
                 if 'Profile' in ionburst_data.keys() and ionburst_data['Profile']:
                     self.Profile = ionburst_data['Profile']
                 if 'ProfilesLocation' in ionburst_data.keys() and ionburst_data['ProfilesLocation']:

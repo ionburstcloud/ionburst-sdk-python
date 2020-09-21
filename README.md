@@ -19,7 +19,7 @@ pip3 install ionburst-sdk-python
 
 The Ionburst SDK can get its configuration (ionburst_id, ionburst_key, ionburst_uri) from the following three files.
 
-If `ionburst_id` and `ionburst_key` are not specified by environment variable, they are obbtained from the credentials file with information from the `config.json` file.
+If `ionburst_id` and `ionburst_key` are not specified by environment variable, they are obtained from the credentials file with information from the `config.json` file.
 
 If `ionburst_uri` is not specified in Ionburst constructor, it'll first check `config.json`, and then the credentials file.
 
@@ -35,8 +35,8 @@ IONBURST_KEY=eW91aGF2ZXRvb211Y2h0aW1lb255b3VyaGFuZHMh
 ```json
 {
   "Ionburst": {
-    "Profile": "test",
-    "IonBurstUri": "https://api.example.ionburst.io/",
+    "Profile": "example",
+    "IonburstUri": "https://api.example.ionburst.io/",
     "TraceCredentialsFile": "OFF",
   }
 }
