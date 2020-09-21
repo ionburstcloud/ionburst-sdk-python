@@ -39,7 +39,7 @@ IONBURST_KEY=eW91aGF2ZXRvb211Y2h0aW1lb255b3VyaGFuZHMh
   "Ionburst": {
     "Profile": "example",
     "IonburstUri": "https://api.example.ionburst.io/",
-    "TraceCredentialsFile": "OFF",
+    "TraceCredentialsFile": "OFF"
   }
 }
 ```
