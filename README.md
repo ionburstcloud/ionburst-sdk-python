@@ -13,6 +13,8 @@ The **Ionburst SDK for Python** enables Python developers to easily work with [I
 
 ```sh
 pip3 install ionburst-sdk-python
+# OR
+pip3 install ionburst-sdk-python --user
 ```
 
 ### Configuration
