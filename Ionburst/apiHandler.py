@@ -88,13 +88,19 @@ class APIHandler:
                 return self.deleteData(id, deferred, 1)
             return e
 
-    def classifications(self):
+    def classifications(self, depth = 0):
         try:
             res = requests.get('{}api/Classification'.format(self.ionburst_uri),headers={
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization':'Bearer {}'.format(self.idToken)
             })
             return res
         except requests.exceptions.RequestException as e:
+            if e.response.status_code is 401 and not depth:
+                response = self.GetJWT()
+                if response.status_code is not 200:
+                    return response
+                return self.classifications(1)
             return e
 
     def checkDeferred(self, token, depth = 0):

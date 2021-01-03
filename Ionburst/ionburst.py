@@ -46,6 +46,7 @@ class Ionburst:
     def getClassifications(self):
         if not self.settings.ionburst_uri:
             raise ValueError('ionburst_uri is not specified!')
+        self.__check_token()
         res = self.__apihandler.classifications()
         if res.status_code is 200:
             return res.text
