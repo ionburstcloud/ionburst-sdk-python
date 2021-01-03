@@ -1,11 +1,11 @@
 # Ionburst SDK for Python [![Gitter](https://badges.gitter.im/ionburstlimited/community.svg)](https://gitter.im/ionburstlimited/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-The **Ionburst SDK for Python** enables Python developers to easily work with [Ionburst][ionburst] and build ultra-secure and private storage into their applications.
+The **Ionburst SDK for Python** enables developers to easily integrate with [Ionburst Cloud][ionburst-cloud], building in ultra-secure and private object storage to their applications.
 
 * [API Docs][docs-api]
 * [SDK Docs][sdk-website]
 * [Issues][sdk-issues]
-* [SDK Samples](https://docs.ionburst.io/#/sdk?id=usage)
+* [SDK Samples](https://ionburst.cloud/docs/sdk/python)
 
 ## Getting Started
 
@@ -135,7 +135,7 @@ data = ionburst.getClassifications()
 Please use the following community resources to get help. We use [Gitlab issues][sdk-issues] to track bugs and feature requests.
 
 * Join the Ionburst Python chat on [gitter](https://gitter.im/ionburstlimited/community)
-* Get in touch with [Ionburst Support](https://docs.ionburst.io/#/introduction?id=contact-amp-support)
+* Get in touch with [Ionburst Support](https://ionburst.cloud/contact)
 * If it turns out that you may have found a bug, please open an [issue][sdk-issues]
 
 ### Opening Issues
@@ -164,8 +164,9 @@ A massive thanks to [Costin Botez](https://github.com/costibotez) for developing
 * [urllib3](https://pypi.org/project/urllib3/),
 
 [ionburst]: https://ionburst.io
-[sdk-website]: https://docs.ionburst.io/#/sdk
+[ionburst-cloud]: https://ionburst.cloud
+[sdk-website]: https://ionburst.cloud/docs/sdk/
 [sdk-source]: https://gitlab.com/ionburst/ionburst-sdk-python
 [sdk-issues]: https://gitlab.com/ionburst/ionburst-sdk-python/issues
 [sdk-license]: https://gitlab.com/ionburst/ionburst-sdk-python/-/blob/master/LICENSE
-[docs-api]: https://docs.ionburst.io/#/api
+[docs-api]: https://ionburst.cloud/docs/api/
