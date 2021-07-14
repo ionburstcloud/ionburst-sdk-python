@@ -33,6 +33,15 @@ build:
       - build_info
       - dist/
 
+publish_develop:
+ stage: publish
+ script:
+  - 'release changelog'
+  - 'release commit-and-tag CHANGELOG.md build_info Ionburst/__init__.py'
+ only:
+  - main
+ when: manual
+
 publish:
  stage: publish
  script:
@@ -40,6 +49,5 @@ publish:
   - 'release commit-and-tag CHANGELOG.md build_info Ionburst/__init__.py'
   - 'twine upload dist/*'
  only:
-  - develop
   - main
  when: manual
