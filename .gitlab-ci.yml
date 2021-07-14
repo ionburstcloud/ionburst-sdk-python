@@ -27,17 +27,19 @@ build:
   - export PREVIOUS_VERSION=$(grep __version__ Ionburst/__init__.py | cut -d " " -f3 | cut -d'"' -f2)
   - 'echo Previous version in Ionburst/__init__.py: $PREVIOUS_VERSION'
   - 'sed -i s/$PREVIOUS_VERSION/$RELEASE_VERSION/g Ionburst/__init__.py'
+  - 'm2r README.md'
   - 'python3 setup.py sdist bdist_wheel'
  artifacts:
     paths:
       - build_info
       - dist/
+      - README.rst
 
 publish_develop:
  stage: publish
  script:
   - 'release changelog'
-  - 'release commit-and-tag CHANGELOG.md build_info Ionburst/__init__.py'
+  - 'release commit-and-tag CHANGELOG.md build_info Ionburst/__init__.py README.rst'
  only:
   - develop
  when: manual
@@ -45,7 +47,6 @@ publish_develop:
 publish:
  stage: publish
  script:
-  - 'm2r README.md'
   - 'release changelog'
   - 'release commit-and-tag CHANGELOG.md build_info Ionburst/__init__.py README.rst'
   - 'twine upload dist/*'
