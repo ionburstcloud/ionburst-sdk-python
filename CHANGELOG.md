@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.3
+2021-07-14
+
+### Fixes
+
+- un-pin versions to use newer dependencies (3481f9356498cf8e7777f37da192464886c6c97a)
+- empty commit to fix release (5abf2d710cc9a5322209be3315561102045a1054)
+
 ## 1.0.3-develop.1
 2021-07-14
 
