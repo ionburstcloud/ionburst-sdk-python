@@ -39,7 +39,7 @@ publish_develop:
   - 'release changelog'
   - 'release commit-and-tag CHANGELOG.md build_info Ionburst/__init__.py'
  only:
-  - main
+  - develop
  when: manual
 
 publish:
