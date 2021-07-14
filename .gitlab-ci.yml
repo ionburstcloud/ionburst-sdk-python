@@ -45,6 +45,7 @@ publish_develop:
 publish:
  stage: publish
  script:
+  - 'm2r README.md'
   - 'release changelog'
   - 'release commit-and-tag CHANGELOG.md build_info Ionburst/__init__.py'
   - 'twine upload dist/*'
