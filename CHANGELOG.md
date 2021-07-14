@@ -1,6 +1,6 @@
-# Changelog
+# CHANGELOG
 
-<!--next-version-placeholder-->
+<!--- next entry here -->
 
 ## v1.0.2 (2021-01-03)
 ### Fix
