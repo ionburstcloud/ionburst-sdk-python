@@ -27,7 +27,7 @@ build:
   - export PREVIOUS_VERSION=$(grep __version__ Ionburst/__init__.py | cut -d " " -f3 | cut -d'"' -f2)
   - 'echo Previous version in Ionburst/__init__.py: $PREVIOUS_VERSION'
   - 'sed -i s/$PREVIOUS_VERSION/$RELEASE_VERSION/g Ionburst/__init__.py'
-  - 'm2r README.md'
+  - 'm2r --overwrite README.md'
   - 'python3 setup.py sdist bdist_wheel'
  artifacts:
     paths:
