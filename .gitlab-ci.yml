@@ -1,0 +1,53 @@
+image: $IMAGE
+
+stages:
+  - version
+  - build
+  - publish
+
+version:
+ stage: version
+ script:
+  - 'release next-version --allow-current'
+  - 'release next-version --allow-current > .next-version'
+  - 'echo "RELEASE_SHA=$CI_COMMIT_SHA" > build_info'
+  - 'echo "RELEASE_VERSION=$(cat .next-version)" >> build_info'
+  - 'cat build_info'
+  - '. build_info'
+  - 'echo $RELEASE_VERSION'
+ artifacts:
+    paths:
+      - build_info
+
+build:
+ stage: build
+ script:
+  - '. build_info'
+  - 'echo New version is: $RELEASE_VERSION'
+  - export PREVIOUS_VERSION=$(grep __version__ Ionburst/__init__.py | cut -d " " -f3 | cut -d'"' -f2)
+  - 'echo Previous version in Ionburst/__init__.py: $PREVIOUS_VERSION'
+  - 'sed -i s/$PREVIOUS_VERSION/$RELEASE_VERSION/g Ionburst/__init__.py'
+  - 'python3 setup.py sdist bdist_wheel'
+ artifacts:
+    paths:
+      - build_info
+      - dist/
+
+publish_develop:
+ stage: publish
+ script:
+  - 'release changelog'
+  - 'release commit-and-tag CHANGELOG.md build_info Ionburst/__init__.py'
+ only:
+  - develop
+ when: manual
+
+publish:
+ stage: publish
+ script:
+  - 'release changelog'
+  - 'release commit-and-tag CHANGELOG.md build_info Ionburst/__init__.py'
+  - 'twine upload dist/*'
+ only:
+  - main
+ when: manual
