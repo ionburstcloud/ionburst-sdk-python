@@ -28,7 +28,7 @@ build:
   - 'echo Previous version in Ionburst/__init__.py: $PREVIOUS_VERSION'
   - 'sed -i s/$PREVIOUS_VERSION/$RELEASE_VERSION/g Ionburst/__init__.py'
   - 'python3 setup.py sdist bdist_wheel'
-artifacts:
+ artifacts:
     paths:
       - build_info
       - dist/
