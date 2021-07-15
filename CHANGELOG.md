@@ -2,6 +2,27 @@
 
 <!--- next entry here -->
 
+## 1.0.4
+2021-07-14
+
+### Fixes
+
+- empty commit to fix release (5abf2d710cc9a5322209be3315561102045a1054)
+- add rst conversion for README for PyPi (35e51fc8485677eabea8f9bbfde0a208f8c5f843)
+- add README.rst to publish step (c4dd2cf0b0b34f336c43b0d94091f6c14def43d6)
+- rearrange rst conversion for README (129105e1d2bd515fe6145194be48cf6ff4facbae)
+- allow m2r to overwrite the rst file (134ecf7dc8b6d88f80cd5e3690d9f59b0eaba39b)
+
+## 1.0.4-develop.2
+2021-07-14
+
+### Fixes
+
+- empty commit to fix release (5abf2d710cc9a5322209be3315561102045a1054)
+- add rst conversion for README for PyPi (35e51fc8485677eabea8f9bbfde0a208f8c5f843)
+- add README.rst to publish step (c4dd2cf0b0b34f336c43b0d94091f6c14def43d6)
+- allow m2r to overwrite the rst file (134ecf7dc8b6d88f80cd5e3690d9f59b0eaba39b)
+
 ## 1.0.4-develop.1
 2021-07-14
 
