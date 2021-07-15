@@ -48,6 +48,24 @@ class APIHandler:
                 return self.downloadData(id, deferred, 1)
             return e
 
+    def downloadSecrets(self, id, deferred = False, depth = 0):
+        if not id:
+            return objdict({ 'status_code': 400, 'reason': 'id must be specified to download data', 'text': '' })
+        url = '{}api/secrets/deferred/start/{}'.format(self.ionburst_uri, id) if deferred else '{}api/secrets/{}'.format(self.ionburst_uri, id)
+        try:
+            res = requests.get(url,headers={
+                'Authorization':'Bearer {}'.format(self.idToken),
+                'Content-Type':'application/octet-stream'
+            })
+            return res
+        except requests.exceptions.RequestException as e:
+            if e.response.status_code is 401 and not depth:
+                response = self.GetJWT()
+                if response.status_code is not 200:
+                    return response
+                return self.downloadData(id, deferred, 1)
+            return e
+
     def uploadData(self, request, deferred = False, depth = 0):
         if 'id' not in request:
             return objdict({ 'status_code': 400, 'reason': 'id must be specified in parameter!', 'text':''})
@@ -70,12 +88,52 @@ class APIHandler:
                     return response
                 return self.uploadData(request, deferred, 1)
             return e
+    
+    def uploadSecrets(self, request, deferred = False, depth = 0):
+        if 'id' not in request:
+            return objdict({ 'status_code': 400, 'reason': 'id must be specified in parameter!', 'text':''})
+        if 'secrets' not in request:
+            return objdict({ 'status_code': 400, 'reason': 'secrets must be specified in parameter!', 'text':'' })
+        url = '{}api/secrets/deferred/start/{}'.format(self.ionburst_uri, request['id']) if deferred else '{}api/secrets/{}'.format(self.ionburst_uri, request['id'])
+        if 'classstr' in request:
+            url += '?classstr={}'.format(request['classstr'])
+        try:
+            res = requests.post(url,data=request['secrets'],headers={
+                'Authorization':'Bearer {}'.format(self.idToken),
+                'Content-Type':'application/octet-stream',
+                'Content-Length': str(len(request['secrets']))
+            })
+            return res
+        except requests.exceptions.RequestException as e:
+            if e.response.status_code is 401 and not depth:
+                response = self.GetJWT()
+                if response.status_code is not 200:
+                    return response
+                return self.uploadData(request, deferred, 1)
+            return e
 
     def deleteData(self, id, deferred = False, depth = 0):
         if not id:
             return objdict({ 'status_code': 400, 'reason': 'id must be specified in parameter!', 'text':'' })
         try:
             res = requests.delete('{}api/data/{}'.format(self.ionburst_uri, id),headers={
+                'Authorization':'Bearer {}'.format(self.idToken),
+                'Content-Type':'application/octet-stream'
+            })
+            return res
+        except requests.exceptions.RequestException as e:
+            if e.response.status_code is 401 and not depth:
+                response = self.GetJWT()
+                if response.status_code is not 200:
+                    return response
+                return self.deleteData(id, deferred, 1)
+            return e
+
+    def deleteSecrets(self, id, deferred = False, depth = 0):
+        if not id:
+            return objdict({ 'status_code': 400, 'reason': 'id must be specified in parameter!', 'text':'' })
+        try:
+            res = requests.delete('{}api/secrets/{}'.format(self.ionburst_uri, id),headers={
                 'Authorization':'Bearer {}'.format(self.idToken),
                 'Content-Type':'application/octet-stream'
             })
@@ -119,12 +177,46 @@ class APIHandler:
                     return response
                 return self.checkDeferred(token, 1)
             return e
+            
+    def checkDeferredSecrets(self, token, depth = 0):
+        if not token:
+            return objdict({ 'status_code': 400, 'reason': 'token must be specified to download secrets', 'text': '' })
+        try:
+            res = requests.get('{}api/secrets/deferred/check/{}'.format(self.ionburst_uri, token),headers={
+                'Authorization':'Bearer {}'.format(self.idToken),
+                'Content-Type':'application/json'
+            })
+            return res
+        except requests.exceptions.RequestException as e:
+            if e.response.status_code is 401 and not depth:
+                response = self.GetJWT()
+                if response.status_code is not 200:
+                    return response
+                return self.checkDeferred(token, 1)
+            return e
 
     def fetch(self, token, depth = 0):
         if not token:
             return objdict({ 'status_code': 400, 'reason': 'Deferred token must be specified to download data', 'text': '' })
         try:
             res = requests.get('{}api/data/deferred/fetch/{}'.format(self.ionburst_uri, token),headers={
+                'Authorization':'Bearer {}'.format(self.idToken),
+                'Content-Type':'application/octet-stream'
+            })
+            return res
+        except requests.exceptions.RequestException as e:
+            if e.response.status_code is 401 and not depth:
+                response = self.GetJWT()
+                if response.status_code is not 200:
+                    return response
+                return self.fetch(token, 1)
+            return e
+    
+    def fetchSecrets(self, token, depth = 0):
+        if not token:
+            return objdict({ 'status_code': 400, 'reason': 'Deferred token must be specified to download secrets', 'text': '' })
+        try:
+            res = requests.get('{}api/secrets/deferred/fetch/{}'.format(self.ionburst_uri, token),headers={
                 'Authorization':'Bearer {}'.format(self.idToken),
                 'Content-Type':'application/octet-stream'
             })

@@ -27,6 +27,14 @@ class Ionburst:
         else:
             raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
 
+    def getSecrets(self, id = None):
+        self.__check_token()
+        res = self.__apihandler.downloadSecrets(id)
+        if res.status_code is 200:
+            return res.content
+        else:
+            raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
+
     def put(self, request = {}):
         self.__check_token()
         res = self.__apihandler.uploadData(request)
@@ -35,9 +43,25 @@ class Ionburst:
         else:
             raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
 
+    def putSecrets(self, request = {}):
+        self.__check_token()
+        res = self.__apihandler.uploadSecrets(request)
+        if res.status_code is 200:
+            return res.text
+        else:
+            raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))    
+
     def delete(self, id =  None):
         self.__check_token()
         res = self.__apihandler.deleteData(id)
+        if res.status_code is 200:
+            return res.text
+        else:
+            raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
+
+    def deleteSecrets(self, id =  None):
+        self.__check_token()
+        res = self.__apihandler.deleteSecrets(id)
         if res.status_code is 200:
             return res.text
         else:
@@ -70,9 +94,34 @@ class Ionburst:
         else:
             raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
 
+    def startDeferredSecrets(self, request = {}):
+        self.__check_token()
+        if 'action' not in request:
+            raise ValueError('action must be specified in the parameter!')
+        if 'id' not in request:
+            raise ValueError('id must be specified in the parameter!')
+        if request['action'] is 'GET':
+            res = self.__apihandler.downloadSecrets(request['id'], True)
+        elif request['action'] is 'PUT':
+            res = self.__apihandler.uploadSecrets(request, True)
+        else:
+            raise ValueError('Deferred action is only available for PUT or GET')
+        if res.status_code is 200:
+            return res.text
+        else:
+            raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
+
     def checkDeferred(self, token = None):
         self.__check_token()
         res = self.__apihandler.checkDeferred(token)
+        if res.status_code is 200 or res.status_code is 202:
+            return res.text
+        else:
+            raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
+
+    def checkDeferredSecrets(self, token = None):
+        self.__check_token()
+        res = self.__apihandler.checkDeferredSecrets(token)
         if res.status_code is 200 or res.status_code is 202:
             return res.text
         else:
@@ -81,6 +130,14 @@ class Ionburst:
     def fetch(self,token = None):
         self.__check_token()
         res = self.__apihandler.fetch(token)
+        if res.status_code is 200:
+            return res.content
+        else:
+            raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
+
+    def fetchSecrets(self,token = None):
+        self.__check_token()
+        res = self.__apihandler.fetchSecrets(token)
         if res.status_code is 200:
             return res.content
         else:
