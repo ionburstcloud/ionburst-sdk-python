@@ -34,6 +34,7 @@ build:
       - build_info
       - dist/
       - README.rst
+      - Ionburst/__init__.py
 
 publish_develop:
  stage: publish
