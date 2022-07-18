@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.1.1
+2022-07-18
+
+### Fixes
+
+- package updates (175ae5bc1dc3c38bb169462f025230ad28f49ff3)
+- bump requests version to stop dependency warnings (5ba5db26cbe8aef2a85fa5a4501b1fe231747695)
+
 ## 1.1.1-develop.1
 2022-07-14
 
