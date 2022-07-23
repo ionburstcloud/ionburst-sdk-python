@@ -1,12 +1,13 @@
 from .settings import Settings
 from .apiHandler import APIHandler
 
+
 class Ionburst:
 
-    def __init__(self, server_url = None):
+    def __init__(self, server_url=None):
         self.settings = Settings(server_url)
         self.__apihandler = APIHandler(self.settings)
-    
+
     def __check_token(self):
         if not self.settings.ionburst_id:
             raise ValueError('ionburst_id is not specified!')
@@ -17,55 +18,92 @@ class Ionburst:
         if not self.__apihandler.idToken:
             res = self.__apihandler.GetJWT()
             if res.status_code is not 200:
-                raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
+                raise SyntaxError('{}, status: {}. {}'.format(
+                    res.reason, res.status_code, res.text))
 
-    def get(self, id = None):
+    # GET - S6 and NKV
+
+    def get(self, id=None):
         self.__check_token()
         res = self.__apihandler.downloadData(id)
         if res.status_code is 200:
             return res.content
         else:
-            raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
+            raise SyntaxError('{}, status: {}. {}'.format(
+                res.reason, res.status_code, res.text))
 
-    def getSecrets(self, id = None):
+    def getSecrets(self, id=None):
         self.__check_token()
         res = self.__apihandler.downloadSecrets(id)
         if res.status_code is 200:
             return res.content
         else:
-            raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
+            raise SyntaxError('{}, status: {}. {}'.format(
+                res.reason, res.status_code, res.text))
 
-    def put(self, request = {}):
+    # PUT - S6 and NKV
+
+    def put(self, request={}):
         self.__check_token()
         res = self.__apihandler.uploadData(request)
         if res.status_code is 200:
             return res.text
         else:
-            raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
+            raise SyntaxError('{}, status: {}. {}'.format(
+                res.reason, res.status_code, res.text))
 
-    def putSecrets(self, request = {}):
+    def putSecrets(self, request={}):
         self.__check_token()
         res = self.__apihandler.uploadSecrets(request)
         if res.status_code is 200:
             return res.text
         else:
-            raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))    
+            raise SyntaxError('{}, status: {}. {}'.format(
+                res.reason, res.status_code, res.text))
 
-    def delete(self, id =  None):
+    # DELETE - S6 and NKV
+
+    def delete(self, id=None):
         self.__check_token()
         res = self.__apihandler.deleteData(id)
         if res.status_code is 200:
             return res.text
         else:
-            raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
+            raise SyntaxError('{}, status: {}. {}'.format(
+                res.reason, res.status_code, res.text))
 
-    def deleteSecrets(self, id =  None):
+    def deleteSecrets(self, id=None):
         self.__check_token()
         res = self.__apihandler.deleteSecrets(id)
         if res.status_code is 200:
             return res.text
         else:
-            raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
+            raise SyntaxError('{}, status: {}. {}'.format(
+                res.reason, res.status_code, res.text))
+
+    # HEAD - S6 and NKV
+
+    def head(self, id=None):
+        self.__check_token()
+        res = self.__apihandler.headData(id)
+        if res.status_code is 200:
+            headResponse = {'exists': True, 'length': res.headers["x-original-length"] }
+            return headResponse
+        else:
+            raise SyntaxError('{}, status: {}. {}'.format(
+                res.reason, res.status_code, res.text))
+
+    def headSecrets(self, id=None):
+        self.__check_token()
+        res = self.__apihandler.headSecrets(id)
+        if res.status_code is 200:
+            headResponse = {'exists': True, 'length': res.headers["x-original-length"] }
+            return headResponse
+        else:
+            raise SyntaxError('{}, status: {}. {}'.format(
+                res.reason, res.status_code, res.text))
+
+    # classifications 
 
     def getClassifications(self):
         if not self.settings.ionburst_uri:
@@ -75,9 +113,12 @@ class Ionburst:
         if res.status_code is 200:
             return res.text
         else:
-            raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
+            raise SyntaxError('{}, status: {}. {}'.format(
+                res.reason, res.status_code, res.text))
 
-    def startDeferred(self, request = {}):
+    # deferred methods
+
+    def startDeferred(self, request={}):
         self.__check_token()
         if 'action' not in request:
             raise ValueError('action must be specified in the parameter!')
@@ -88,13 +129,15 @@ class Ionburst:
         elif request['action'] is 'PUT':
             res = self.__apihandler.uploadData(request, True)
         else:
-            raise ValueError('Deferred action is only available for PUT or GET')
+            raise ValueError(
+                'Deferred action is only available for PUT or GET')
         if res.status_code is 200:
             return res.text
         else:
-            raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
+            raise SyntaxError('{}, status: {}. {}'.format(
+                res.reason, res.status_code, res.text))
 
-    def startDeferredSecrets(self, request = {}):
+    def startDeferredSecrets(self, request={}):
         self.__check_token()
         if 'action' not in request:
             raise ValueError('action must be specified in the parameter!')
@@ -105,40 +148,46 @@ class Ionburst:
         elif request['action'] is 'PUT':
             res = self.__apihandler.uploadSecrets(request, True)
         else:
-            raise ValueError('Deferred action is only available for PUT or GET')
+            raise ValueError(
+                'Deferred action is only available for PUT or GET')
         if res.status_code is 200:
             return res.text
         else:
-            raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
+            raise SyntaxError('{}, status: {}. {}'.format(
+                res.reason, res.status_code, res.text))
 
-    def checkDeferred(self, token = None):
+    def checkDeferred(self, token=None):
         self.__check_token()
         res = self.__apihandler.checkDeferred(token)
         if res.status_code is 200 or res.status_code is 202:
             return res.text
         else:
-            raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
+            raise SyntaxError('{}, status: {}. {}'.format(
+                res.reason, res.status_code, res.text))
 
-    def checkDeferredSecrets(self, token = None):
+    def checkDeferredSecrets(self, token=None):
         self.__check_token()
         res = self.__apihandler.checkDeferredSecrets(token)
         if res.status_code is 200 or res.status_code is 202:
             return res.text
         else:
-            raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
-    
-    def fetch(self,token = None):
+            raise SyntaxError('{}, status: {}. {}'.format(
+                res.reason, res.status_code, res.text))
+
+    def fetch(self, token=None):
         self.__check_token()
         res = self.__apihandler.fetch(token)
         if res.status_code is 200:
             return res.content
         else:
-            raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
+            raise SyntaxError('{}, status: {}. {}'.format(
+                res.reason, res.status_code, res.text))
 
-    def fetchSecrets(self,token = None):
+    def fetchSecrets(self, token=None):
         self.__check_token()
         res = self.__apihandler.fetchSecrets(token)
         if res.status_code is 200:
             return res.content
         else:
-            raise SyntaxError('{}, status: {}. {}'.format(res.reason, res.status_code, res.text))
+            raise SyntaxError('{}, status: {}. {}'.format(
+                res.reason, res.status_code, res.text))
