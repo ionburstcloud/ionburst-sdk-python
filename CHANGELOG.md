@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.2.0-develop.1
+2022-07-23
+
+### Features
+
+- add new HEAD method for Data and Secrets (017e538fd83529739c13c1043a6e7c9462e2d4ae)
+
 ## 1.1.1
 2022-07-18
 
